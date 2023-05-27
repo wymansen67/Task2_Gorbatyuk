@@ -15,19 +15,19 @@ namespace WindowsFormsApp1
     {
         private PhoneBook phoneBook = new PhoneBook();
 
-        static string CheckName(string name)
+        static string CheckName (string name)
         {
             string message = "";
 
-            if (name == "")
+            if ( name == "" )
             {
                 message = "Поле для ввода имени не может быть пустым.";
             }
             else
             {
-                foreach (char symbol in name)
+                foreach ( char symbol in name )
                 {
-                    if (!char.IsLetter(symbol) && symbol != ' ')
+                    if ( !char.IsLetter(symbol) && symbol != ' ' )
                     {
                         message = "Поле имя может содержать только буквы.";
                         break;
@@ -38,21 +38,21 @@ namespace WindowsFormsApp1
             return message;
         }
 
-        static string CheckPhone(string phoneNumber)
+        static string CheckPhone (string phoneNumber)
         {
             string message = "";
 
-            if (phoneNumber == "")
+            if ( phoneNumber == "" )
             {
                 message = "Поле для ввода номера телефона не может быть пустым.";
             }
             else
             {
-                if (message == "")
+                if ( message == "" )
                 {
-                    foreach (char symbol in phoneNumber)
+                    foreach ( char symbol in phoneNumber )
                     {
-                        if (!char.IsDigit(symbol) && symbol != '+' && symbol != '-')
+                        if ( !char.IsDigit(symbol) && symbol != '+' && symbol != '-')
                         {
                             message = "Поле для ввода номера телефона может содержать только цифры и знак +.";
                             break;
@@ -60,12 +60,12 @@ namespace WindowsFormsApp1
                     }
                 }
 
-                if (message == "")
-                {
-                    if (phoneNumber.Length < 13 || phoneNumber.Length > 13)
-                    {
-                        message = "Некорректное количество символов в номере телефона для сохранения.";
-                    }
+                if ( message == "" )
+                {                   
+                        if ( phoneNumber.Length < 13 || phoneNumber.Length > 13 )
+                        {
+                            message = "Некорректное количество символов в номере телефона для сохранения.";
+                        }                    
                 }
             }
 
@@ -74,7 +74,7 @@ namespace WindowsFormsApp1
 
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
         public void refreshList()
@@ -86,20 +86,20 @@ namespace WindowsFormsApp1
             }
         }
 
-        private void ImportPhoneBook(string filename)
+        private void ImportPhoneBook (string filename)
         {
             try
             {
                 PhoneBookLoader.Load(phoneBook, filename);
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
                 MessageBox.Show("При загрузке книги произошла ошибка", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
+        }        
 
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {            
             ImportPhoneBook("contacts.csv");
             refreshList();
         }
@@ -118,7 +118,7 @@ namespace WindowsFormsApp1
                 foreach (Contact contact in searchRez)
                 {
                     listBox1.Items.Add(contact);
-                }
+                }                
             }
             else if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) != "")
             {
@@ -127,7 +127,7 @@ namespace WindowsFormsApp1
                 foreach (Contact contact in searchRezNumber)
                 {
                     listBox1.Items.Add(contact);
-                }
+                }  
             }
             else if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) == "")
             {
@@ -145,53 +145,25 @@ namespace WindowsFormsApp1
             }
         }
 
-        static string checkExisting(PhoneBook phoneBook, string textBox1, string textBox2)
-        {
-            string message = "";
-
-            foreach (Contact contact in phoneBook.GetContacts())
-            {
-                if (CheckName(textBox1) == "" && CheckPhone(textBox2) == "")
-                {
-                    if (!contact.Name.Contains(textBox1) || !contact.Phone.Contains(textBox2))
-                    {
-                        message = "";
-                    }
-                    else
-                    {
-                        MessageBox.Show("Такой контакт уже существует", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        message = "Error";
-                        break;
-                    }
-                }
-                else if (CheckName(textBox1) != "" || CheckPhone(textBox2) != "")
-                {
-                    if (CheckName(textBox1) != "")
-                    {
-                        MessageBox.Show(CheckName(textBox1), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        message = "Error";
-                    }
-                    if (CheckPhone(textBox2) != "")
-                    {
-                        MessageBox.Show(CheckPhone(textBox2), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        message = "Error";
-                    }
-                    break;
-                }
-            }
-
-            return message;
-        }
-
         private void AddContact_Click(object sender, EventArgs e)
         {
-            string message = checkExisting(phoneBook, textBox1.Text, textBox2.Text);
-            
-
-            if (message == "")
+            foreach (Contact contact in phoneBook.GetContacts())
             {
-                phoneBook.AddContact(new Contact(textBox1.Text, textBox2.Text));
-                MessageBox.Show("Контакт успешно добавлен", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) == "")
+                {
+                    if (!contact.Name.Contains(textBox1.Text) || !contact.Phone.Contains(textBox2.Text))
+                    {
+                        phoneBook.AddContact(new Contact(textBox1.Text, textBox2.Text));
+                        MessageBox.Show("Контакт успешно добавлен", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else { MessageBox.Show("Такой контакт уже существует", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); break; }
+                }
+                else if (CheckName(textBox1.Text) != "" || CheckPhone(textBox2.Text) != "")
+                {
+                    if (CheckName(textBox1.Text) != "") MessageBox.Show(CheckName(textBox1.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    if (CheckPhone(textBox2.Text) != "") MessageBox.Show(CheckPhone(textBox2.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
             }
         }
 
@@ -203,7 +175,7 @@ namespace WindowsFormsApp1
                 phoneBook.RemoveContactByName(SelectedContact);
                 listBox1.Items.RemoveAt(listBox1.SelectedIndex);
             }
-            PhoneBookLoader.Save(listBox1, "contact.txt");
+            PhoneBookLoader.Save(listBox1,"contact.txt");
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -213,12 +185,12 @@ namespace WindowsFormsApp1
 
         private void SaveToFile_Click(object sender, EventArgs e)
         {
-            PhoneBookLoader.Save(listBox1, "contact.csv");
+            PhoneBookLoader.Save(listBox1,"contact.csv");
         }
 
         private void Refresh_Click(object sender, EventArgs e)
         {
-            PhoneBookLoader.Load(phoneBook, "contact.csv");
-        }
+            refreshList();
+        }                
     }
 }
