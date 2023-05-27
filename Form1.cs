@@ -13,8 +13,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
-        private PhoneBook phoneBook = new PhoneBook();
-
+        private PhoneBook phoneBook = new PhoneBook();        
         static string CheckName (string name)
         {
             string message = "";
@@ -37,7 +36,6 @@ namespace WindowsFormsApp1
 
             return message;
         }
-
         static string CheckPhone (string phoneNumber)
         {
             string message = "";
@@ -71,12 +69,12 @@ namespace WindowsFormsApp1
 
             return message;
         }
-
         public Form1()
         {
             InitializeComponent();            
         }
 
+        //ListBox fill method
         public void refreshList()
         {
             listBox1.Items.Clear();
@@ -85,7 +83,6 @@ namespace WindowsFormsApp1
                 listBox1.Items.Add(contact);
             }
         }
-
         private void ImportPhoneBook (string filename)
         {
             try
@@ -96,14 +93,12 @@ namespace WindowsFormsApp1
             {
                 MessageBox.Show("При загрузке книги произошла ошибка", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }        
-
+        }      
         private void Form1_Load(object sender, EventArgs e)
         {            
             ImportPhoneBook("contacts.csv");
             refreshList();
         }
-
         private void SearchContact_Click(object sender, EventArgs e)
         {
             if (CheckName(textBox1.Text) != "" && CheckPhone(textBox2.Text) != "")
@@ -144,7 +139,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
         private void AddContact_Click(object sender, EventArgs e)
         {
             foreach (Contact contact in phoneBook.GetContacts())
@@ -166,7 +160,6 @@ namespace WindowsFormsApp1
                 }
             }
         }
-
         private void DeleteContact_Click(object sender, EventArgs e)
         {
             if (listBox1.SelectedIndex != -1)
@@ -177,17 +170,14 @@ namespace WindowsFormsApp1
             }
             PhoneBookLoader.Save(listBox1,"contact.txt");
         }
-
         private void Exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
         private void SaveToFile_Click(object sender, EventArgs e)
         {
             PhoneBookLoader.Save(listBox1,"contact.csv");
         }
-
         private void Refresh_Click(object sender, EventArgs e)
         {
             refreshList();
