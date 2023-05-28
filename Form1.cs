@@ -11,176 +11,197 @@ using System.Xml.Linq;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class FormContacts : Form
     {
-        private PhoneBook phoneBook = new PhoneBook();        
-        static string CheckName (string name)
+        private static PhoneBook phonebook;
+        public FormContacts()
+        {
+            InitializeComponent();
+            phonebook = new PhoneBook();
+        }
+
+        private void FormContacts_Load(object sender, EventArgs e)
+        {
+            PhoneBookLoader.Load(phonebook, "contacts.txt");
+            RefreshList();
+        }
+
+        static string CheckName(string TextName)
         {
             string message = "";
 
-            if ( name == "" )
+            if (TextName == "")
             {
                 message = "Поле для ввода имени не может быть пустым.";
             }
             else
             {
-                foreach ( char symbol in name )
+                foreach (char symbol in TextName)
                 {
-                    if ( !char.IsLetter(symbol) && symbol != ' ' )
+                    if (!char.IsLetter(symbol) && symbol != ' ')
                     {
                         message = "Поле имя может содержать только буквы.";
                         break;
                     }
+
                 }
             }
 
             return message;
         }
-        static string CheckPhone (string phoneNumber)
+
+        static string CheckPhone(string TextPhone)
         {
             string message = "";
 
-            if ( phoneNumber == "" )
+            if (TextPhone == "")
             {
                 message = "Поле для ввода номера телефона не может быть пустым.";
             }
             else
             {
-                if ( message == "" )
+                if (message == "")
                 {
-                    foreach ( char symbol in phoneNumber )
+                    foreach (char symbol in TextPhone)
                     {
-                        if ( !char.IsDigit(symbol) && symbol != '+' && symbol != '-')
+                        if (!char.IsDigit(symbol) && symbol != '+')
                         {
                             message = "Поле для ввода номера телефона может содержать только цифры и знак +.";
                             break;
                         }
+
                     }
                 }
 
-                if ( message == "" )
-                {                   
-                        if ( phoneNumber.Length < 13 || phoneNumber.Length > 13 )
+                if (message == "")
+                {
+                    if (TextPhone[0] == '+')
+                    {
+                        if (TextPhone.Length < 12 || TextPhone.Length > 12)
                         {
                             message = "Некорректное количество символов в номере телефона для сохранения.";
-                        }                    
+                        }
+                    }
+                    else
+                    {
+                        if (TextPhone.Length < 11 || TextPhone.Length > 11)
+                        {
+                            message = "Некорректное количество символов в номере телефона для сохранения.";
+                        }
+                    }
                 }
             }
 
             return message;
         }
-        public Form1()
+
+        static void AddContactt(string TextName, string TextPhone)
         {
-            InitializeComponent();            
+            Contact contact = new Contact(TextName, TextPhone);
+            phonebook.AddContact(contact);
         }
 
-        //ListBox fill method
-        public void refreshList()
+        private void ButtonContactAdd_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Clear();
-            foreach (Contact contact in phoneBook.GetContacts())
+            string name = TextBoxContactName.Text;
+            string phone = TextBoxContactPhone.Text;
+            string message;
+
+            message = CheckName(name);
+
+            if (message == "")
             {
-                listBox1.Items.Add(contact);
-            }
-        }
-        private void ImportPhoneBook (string filename)
-        {
-            try
-            {
-                PhoneBookLoader.Load(phoneBook, filename);
-            }
-            catch ( Exception ex )
-            {
-                MessageBox.Show("При загрузке книги произошла ошибка", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }      
-        private void Form1_Load(object sender, EventArgs e)
-        {            
-            ImportPhoneBook("contacts.csv");
-            refreshList();
-        }
-        private void SearchContact_Click(object sender, EventArgs e)
-        {
-            if (CheckName(textBox1.Text) != "" && CheckPhone(textBox2.Text) != "")
-            {
-                if (CheckName(textBox1.Text) != "") MessageBox.Show(CheckName(textBox1.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                if (CheckPhone(textBox2.Text) != "") MessageBox.Show(CheckPhone(textBox2.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (CheckName(textBox1.Text) != "" && CheckPhone(textBox2.Text) == "")
-            {
-                List<Contact> searchRez = phoneBook.FindContact(textBox1.Text);
-                listBox1.Items.Clear();
-                foreach (Contact contact in searchRez)
+                message = CheckPhone(phone);
+
+                if (message == "")
                 {
-                    listBox1.Items.Add(contact);
-                }                
-            }
-            else if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) != "")
-            {
-                List<Contact> searchRezNumber = phoneBook.FindNumber(textBox2.Text);
-                listBox1.Items.Clear();
-                foreach (Contact contact in searchRezNumber)
-                {
-                    listBox1.Items.Add(contact);
-                }  
-            }
-            else if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) == "")
-            {
-                List<Contact> searchRez = phoneBook.FindContact(textBox1.Text);
-                listBox1.Items.Clear();
-                foreach (Contact contact in searchRez)
-                {
-                    listBox1.Items.Add(contact);
-                }
-                List<Contact> searchRezNumber = phoneBook.FindNumber(textBox2.Text);
-                foreach (Contact contact in searchRezNumber)
-                {
-                    listBox1.Items.Add(contact);
-                }
-            }
-        }
-        private void AddContact_Click(object sender, EventArgs e)
-        {
-            foreach (Contact contact in phoneBook.GetContacts())
-            {
-                if (CheckName(textBox1.Text) == "" && CheckPhone(textBox2.Text) == "")
-                {
-                    if (!contact.Name.Contains(textBox1.Text) || !contact.Phone.Contains(textBox2.Text))
+                    Contact VerifableContact = new Contact(name, phone);
+                    bool NotFound = phonebook.CheckContainsContact(VerifableContact);
+                    if (NotFound == true)
                     {
-                        phoneBook.AddContact(new Contact(textBox1.Text, textBox2.Text));
-                        MessageBox.Show("Контакт успешно добавлен", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AddContactt(name, phone);
+                        MessageBox.Show("Контакт добавлен.");
                     }
-                    else { MessageBox.Show("Такой контакт уже существует", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error); break; }
+                    else
+                    {
+                        MessageBox.Show("Контакт с таким номером телефона уже существует.", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
                 }
-                else if (CheckName(textBox1.Text) != "" || CheckPhone(textBox2.Text) != "")
+                else
                 {
-                    if (CheckName(textBox1.Text) != "") MessageBox.Show(CheckName(textBox1.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    if (CheckPhone(textBox2.Text) != "") MessageBox.Show(CheckPhone(textBox2.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+                    MessageBox.Show(message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            else
+            {
+                MessageBox.Show(message, "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void ButtonRemoveContact_Click(object sender, EventArgs e)
+        {
+            string name;
+            string phone;
+            string[] components = ListBoxContacts.SelectedItem.ToString().Split(',');
+
+            name = components[0];
+            phone = components[1];
+
+            if (ListBoxContacts.SelectedIndex != -1)
+            {
+                phonebook.RemoveContact(phonebook, name, phone);
+            }
+
+            RefreshList();
+        }
+
+        private void ButtonSaveToFile_Click(object sender, EventArgs e)
+        {
+            PhoneBookLoader.Save(ListBoxContacts, "contacts.txt");
+        }
+
+        private void ButtonSearchContact_Click(object sender, EventArgs e)
+        {
+            string name = TextBoxContactName.Text;
+            string phone = TextBoxContactPhone.Text;
+            if (name != "")
+            {
+                List<Contact> searchResults = phonebook.SearchContact(phonebook, name);
+                ListBoxContacts.Items.Clear();
+                foreach (Contact contact in searchResults)
+                {
+                    ListBoxContacts.Items.Add(contact.ContactToString());
+                }
+            }
+
+            if (phone != "")
+            {
+                List<Contact> searchResults = phonebook.SearchContact(phonebook, phone);
+                ListBoxContacts.Items.Clear();
+                foreach (Contact contact in searchResults)
+                {
+                    ListBoxContacts.Items.Add(contact.ContactToString());
                 }
             }
         }
-        private void DeleteContact_Click(object sender, EventArgs e)
+
+        public void RefreshList()
         {
-            if (listBox1.SelectedIndex != -1)
+            ListBoxContacts.Items.Clear();
+            foreach (Contact contact in phonebook.GetContacts())
             {
-                string SelectedContact = listBox1.SelectedItem.ToString();
-                phoneBook.RemoveContactByName(SelectedContact);
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
+                ListBoxContacts.Items.Add(contact.ContactToString());
             }
-            PhoneBookLoader.Save(listBox1,"contact.txt");
         }
-        private void Exit_Click(object sender, EventArgs e)
+
+        private void ButtonRefresh_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            RefreshList();
         }
-        private void SaveToFile_Click(object sender, EventArgs e)
+
+        private void ButtonExit_Click(object sender, EventArgs e)
         {
-            PhoneBookLoader.Save(listBox1,"contact.csv");
+            this.Close();
         }
-        private void Refresh_Click(object sender, EventArgs e)
-        {
-            refreshList();
-        }                
     }
 }

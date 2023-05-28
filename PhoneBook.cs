@@ -3,63 +3,71 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
     class PhoneBook
     {
-        private List<Contact> contacts = new List<Contact> ();    
+        List<Contact> Contacts;
 
-        public void AddContact (Contact contact)
+        public PhoneBook()
         {
-            contacts.Add (contact);
+            Contacts = new List<Contact>();
         }
 
-        public void RemoveContact (Contact contact)
+        public void AddContact(Contact contact)
         {
-            contacts.Remove (contact);
+            Contacts.Add(contact);
         }
 
-        public void RemoveContactByName (string name)
+        public bool CheckContainsContact(Contact VerifableContact)
         {
-            Contact contact = contacts.Find(c =>  c.Name == name);
-            if (contact != null)
+            bool NotFound = true;
+
+            foreach (Contact Contact in Contacts)
             {
-                contacts.Remove (contact);
-            }
-        }
-
-        public Contact GetContactByName (string name)
-        {
-            return contacts.Find(c => c.Name == name);
-        }
-
-        public List<Contact> GetContacts () {return contacts;}
-
-        public List<Contact> FindContact (string desiredObject)
-        {
-            List<Contact> searchResult = new List<Contact>();
-            foreach (Contact contact in contacts)
-            {
-                if (contact.Name.Contains(desiredObject))
+                if (Contact.Phone.Contains(VerifableContact.Phone))
                 {
-                    searchResult.Add (contact);
+                    NotFound = false;
+                    break;
                 }
             }
-            return searchResult;
+            return NotFound;
         }
 
-        public List<Contact> FindNumber (string desiredObject)
+        public List<Contact> GetContacts() { return Contacts; }
+
+        public List<Contact> SearchContact(PhoneBook phonebook, string c)
         {
-            List<Contact> searchResult = new List<Contact>();
-            foreach (Contact contact in contacts)
+            bool search = false;
+            List<Contact> searchResults = new List<Contact>();
+            foreach (Contact contact in phonebook.GetContacts())
             {
-                if (contact.Phone.Contains(desiredObject))
+                if (contact.Name.Contains(c) || contact.Phone.Contains(c))
                 {
-                    searchResult.Add (contact);
+                    searchResults.Add(contact);
+                    search = true;
                 }
             }
-            return searchResult;
+
+            if (search == false)
+            {
+                MessageBox.Show("Не найдено.");
+            }
+
+            return searchResults;
+        }
+
+        public void RemoveContact(PhoneBook phonebook, string name, string phone)
+        {
+            foreach (Contact contact in phonebook.GetContacts().ToList())
+            {
+                if (contact.Name.Contains(name) && contact.Phone.Contains(phone))
+                {
+                    Contacts.Remove(contact);
+                }
+            }
         }
     }
 }

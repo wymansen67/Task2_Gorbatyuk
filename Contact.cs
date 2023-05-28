@@ -11,15 +11,15 @@ namespace WindowsFormsApp1
         public string Name { get; set; }
         public string Phone { get; set; }
 
-        public Contact(string name, string phoneNumber)
+        public Contact(string name, string phone)
         {
             Name = name;
-            Phone = phoneNumber;
+            Phone = phone;
         }
 
-        public override string ToString()
+        public string ContactToString()
         {
-            return $"{Name}; {Phone}";
+            return $"{Name},{Phone}";
         }
     }
 }

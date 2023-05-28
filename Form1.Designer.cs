@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class FormContacts
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -28,150 +28,163 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SearchContact = new System.Windows.Forms.Button();
-            this.AddContact = new System.Windows.Forms.Button();
-            this.DeleteContact = new System.Windows.Forms.Button();
-            this.Exit = new System.Windows.Forms.Button();
-            this.SaveToFile = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.Refresh = new System.Windows.Forms.Button();
+            this.ListBoxContacts = new System.Windows.Forms.ListBox();
+            this.LabelContactsList = new System.Windows.Forms.Label();
+            this.TextBoxContactName = new System.Windows.Forms.TextBox();
+            this.ButtonSearchContact = new System.Windows.Forms.Button();
+            this.ButtonRemoveContact = new System.Windows.Forms.Button();
+            this.ButtonExit = new System.Windows.Forms.Button();
+            this.ButtonSaveToFile = new System.Windows.Forms.Button();
+            this.TextBoxContactPhone = new System.Windows.Forms.TextBox();
+            this.LabelContactName = new System.Windows.Forms.Label();
+            this.LabelContactPhone = new System.Windows.Forms.Label();
+            this.ButtonRefresh = new System.Windows.Forms.Button();
+            this.ButtonContactAdd = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listBox1
+            // ListBoxContacts
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(13, 39);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(301, 394);
-            this.listBox1.TabIndex = 0;
+            this.ListBoxContacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ListBoxContacts.FormattingEnabled = true;
+            this.ListBoxContacts.ItemHeight = 20;
+            this.ListBoxContacts.Location = new System.Drawing.Point(14, 32);
+            this.ListBoxContacts.Name = "ListBoxContacts";
+            this.ListBoxContacts.Size = new System.Drawing.Size(301, 384);
+            this.ListBoxContacts.TabIndex = 0;
             // 
-            // label1
+            // LabelContactsList
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(10, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Контакты. Список";
+            this.LabelContactsList.AutoSize = true;
+            this.LabelContactsList.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelContactsList.Location = new System.Drawing.Point(10, 9);
+            this.LabelContactsList.Name = "LabelContactsList";
+            this.LabelContactsList.Size = new System.Drawing.Size(150, 20);
+            this.LabelContactsList.TabIndex = 1;
+            this.LabelContactsList.Text = "Список контактов:";
             // 
-            // textBox1
+            // TextBoxContactName
             // 
-            this.textBox1.Location = new System.Drawing.Point(464, 36);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(204, 20);
-            this.textBox1.TabIndex = 2;
+            this.TextBoxContactName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TextBoxContactName.Location = new System.Drawing.Point(516, 36);
+            this.TextBoxContactName.Name = "TextBoxContactName";
+            this.TextBoxContactName.Size = new System.Drawing.Size(204, 26);
+            this.TextBoxContactName.TabIndex = 2;
             // 
-            // SearchContact
+            // ButtonSearchContact
             // 
-            this.SearchContact.Location = new System.Drawing.Point(329, 94);
-            this.SearchContact.Name = "SearchContact";
-            this.SearchContact.Size = new System.Drawing.Size(152, 23);
-            this.SearchContact.TabIndex = 3;
-            this.SearchContact.Text = "Ищи контакт";
-            this.SearchContact.UseVisualStyleBackColor = true;
-            this.SearchContact.Click += new System.EventHandler(this.SearchContact_Click);
+            this.ButtonSearchContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonSearchContact.Location = new System.Drawing.Point(341, 108);
+            this.ButtonSearchContact.Name = "ButtonSearchContact";
+            this.ButtonSearchContact.Size = new System.Drawing.Size(152, 33);
+            this.ButtonSearchContact.TabIndex = 3;
+            this.ButtonSearchContact.Text = "Ищи контакт";
+            this.ButtonSearchContact.UseVisualStyleBackColor = true;
+            this.ButtonSearchContact.Click += new System.EventHandler(this.ButtonSearchContact_Click);
             // 
-            // AddContact
+            // ButtonRemoveContact
             // 
-            this.AddContact.Location = new System.Drawing.Point(516, 94);
-            this.AddContact.Name = "AddContact";
-            this.AddContact.Size = new System.Drawing.Size(152, 23);
-            this.AddContact.TabIndex = 4;
-            this.AddContact.Text = "Добавить контакт";
-            this.AddContact.UseVisualStyleBackColor = true;
-            this.AddContact.Click += new System.EventHandler(this.AddContact_Click);
+            this.ButtonRemoveContact.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonRemoveContact.Location = new System.Drawing.Point(545, 167);
+            this.ButtonRemoveContact.Name = "ButtonRemoveContact";
+            this.ButtonRemoveContact.Size = new System.Drawing.Size(152, 33);
+            this.ButtonRemoveContact.TabIndex = 5;
+            this.ButtonRemoveContact.Text = "Удалить контакт";
+            this.ButtonRemoveContact.UseVisualStyleBackColor = true;
+            this.ButtonRemoveContact.Click += new System.EventHandler(this.ButtonRemoveContact_Click);
             // 
-            // DeleteContact
+            // ButtonExit
             // 
-            this.DeleteContact.Location = new System.Drawing.Point(516, 135);
-            this.DeleteContact.Name = "DeleteContact";
-            this.DeleteContact.Size = new System.Drawing.Size(152, 23);
-            this.DeleteContact.TabIndex = 5;
-            this.DeleteContact.Text = "Удалить контакт";
-            this.DeleteContact.UseVisualStyleBackColor = true;
-            this.DeleteContact.Click += new System.EventHandler(this.DeleteContact_Click);
+            this.ButtonExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonExit.Location = new System.Drawing.Point(610, 381);
+            this.ButtonExit.Name = "ButtonExit";
+            this.ButtonExit.Size = new System.Drawing.Size(87, 38);
+            this.ButtonExit.TabIndex = 6;
+            this.ButtonExit.Text = "Выход";
+            this.ButtonExit.UseVisualStyleBackColor = true;
+            this.ButtonExit.Click += new System.EventHandler(this.ButtonExit_Click);
             // 
-            // Exit
+            // ButtonSaveToFile
             // 
-            this.Exit.Location = new System.Drawing.Point(610, 400);
-            this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(52, 38);
-            this.Exit.TabIndex = 6;
-            this.Exit.Text = "Выход";
-            this.Exit.UseVisualStyleBackColor = true;
-            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            this.ButtonSaveToFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ButtonSaveToFile.Location = new System.Drawing.Point(341, 159);
+            this.ButtonSaveToFile.Name = "ButtonSaveToFile";
+            this.ButtonSaveToFile.Size = new System.Drawing.Size(152, 49);
+            this.ButtonSaveToFile.TabIndex = 7;
+            this.ButtonSaveToFile.Text = "Сохранить в файл";
+            this.ButtonSaveToFile.UseVisualStyleBackColor = true;
+            this.ButtonSaveToFile.Click += new System.EventHandler(this.ButtonSaveToFile_Click);
             // 
-            // SaveToFile
+            // TextBoxContactPhone
             // 
-            this.SaveToFile.Location = new System.Drawing.Point(329, 135);
-            this.SaveToFile.Name = "SaveToFile";
-            this.SaveToFile.Size = new System.Drawing.Size(152, 23);
-            this.SaveToFile.TabIndex = 7;
-            this.SaveToFile.Text = "Сохранить в файл";
-            this.SaveToFile.UseVisualStyleBackColor = true;
-            this.SaveToFile.Click += new System.EventHandler(this.SaveToFile_Click);
+            this.TextBoxContactPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.TextBoxContactPhone.Location = new System.Drawing.Point(516, 65);
+            this.TextBoxContactPhone.Name = "TextBoxContactPhone";
+            this.TextBoxContactPhone.Size = new System.Drawing.Size(204, 26);
+            this.TextBoxContactPhone.TabIndex = 8;
             // 
-            // textBox2
+            // LabelContactName
             // 
-            this.textBox2.Location = new System.Drawing.Point(464, 68);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(204, 20);
-            this.textBox2.TabIndex = 8;
+            this.LabelContactName.AutoSize = true;
+            this.LabelContactName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelContactName.Location = new System.Drawing.Point(326, 39);
+            this.LabelContactName.Name = "LabelContactName";
+            this.LabelContactName.Size = new System.Drawing.Size(118, 20);
+            this.LabelContactName.TabIndex = 9;
+            this.LabelContactName.Text = "Имя контакта:";
             // 
-            // label2
+            // LabelContactPhone
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(326, 39);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "Имя контакта";
+            this.LabelContactPhone.AutoSize = true;
+            this.LabelContactPhone.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelContactPhone.Location = new System.Drawing.Point(326, 71);
+            this.LabelContactPhone.Name = "LabelContactPhone";
+            this.LabelContactPhone.Size = new System.Drawing.Size(183, 20);
+            this.LabelContactPhone.TabIndex = 10;
+            this.LabelContactPhone.Text = "Телефончик контакта:";
             // 
-            // label3
+            // ButtonRefresh
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(326, 71);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(118, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Телефончик контакта";
+            this.ButtonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F);
+            this.ButtonRefresh.Location = new System.Drawing.Point(330, 372);
+            this.ButtonRefresh.Name = "ButtonRefresh";
+            this.ButtonRefresh.Size = new System.Drawing.Size(53, 44);
+            this.ButtonRefresh.TabIndex = 11;
+            this.ButtonRefresh.Text = "⟳";
+            this.ButtonRefresh.UseVisualStyleBackColor = true;
+            this.ButtonRefresh.Click += new System.EventHandler(this.ButtonRefresh_Click);
             // 
-            // Refresh
+            // ButtonContactAdd
             // 
-            this.Refresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Refresh.Location = new System.Drawing.Point(329, 387);
-            this.Refresh.Name = "Refresh";
-            this.Refresh.Size = new System.Drawing.Size(50, 46);
-            this.Refresh.TabIndex = 11;
-            this.Refresh.Text = "⟳";
-            this.Refresh.UseVisualStyleBackColor = true;
-            this.Refresh.Click += new System.EventHandler(this.Refresh_Click);
+            this.ButtonContactAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ButtonContactAdd.Location = new System.Drawing.Point(545, 108);
+            this.ButtonContactAdd.Name = "ButtonContactAdd";
+            this.ButtonContactAdd.Size = new System.Drawing.Size(152, 33);
+            this.ButtonContactAdd.TabIndex = 12;
+            this.ButtonContactAdd.Text = "Добавить контакт";
+            this.ButtonContactAdd.UseVisualStyleBackColor = true;
+            this.ButtonContactAdd.Click += new System.EventHandler(this.ButtonContactAdd_Click);
             // 
-            // Form1
+            // FormContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(674, 450);
-            this.Controls.Add(this.Refresh);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.SaveToFile);
-            this.Controls.Add(this.Exit);
-            this.Controls.Add(this.DeleteContact);
-            this.Controls.Add(this.AddContact);
-            this.Controls.Add(this.SearchContact);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
-            this.Name = "Form1";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.ClientSize = new System.Drawing.Size(757, 426);
+            this.ControlBox = false;
+            this.Controls.Add(this.ButtonContactAdd);
+            this.Controls.Add(this.ButtonRefresh);
+            this.Controls.Add(this.LabelContactPhone);
+            this.Controls.Add(this.LabelContactName);
+            this.Controls.Add(this.TextBoxContactPhone);
+            this.Controls.Add(this.ButtonSaveToFile);
+            this.Controls.Add(this.ButtonExit);
+            this.Controls.Add(this.ButtonRemoveContact);
+            this.Controls.Add(this.ButtonSearchContact);
+            this.Controls.Add(this.TextBoxContactName);
+            this.Controls.Add(this.LabelContactsList);
+            this.Controls.Add(this.ListBoxContacts);
+            this.Name = "FormContacts";
+            this.Text = "Мои контакты";
+            this.Load += new System.EventHandler(this.FormContacts_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,18 +192,18 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button SearchContact;
+        private System.Windows.Forms.ListBox ListBoxContacts;
+        private System.Windows.Forms.Label LabelContactsList;
+        private System.Windows.Forms.TextBox TextBoxContactName;
+        private System.Windows.Forms.Button ButtonSearchContact;
         private System.Windows.Forms.Button AddContact;
-        private System.Windows.Forms.Button DeleteContact;
-        private System.Windows.Forms.Button Exit;
-        private System.Windows.Forms.Button SaveToFile;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button Refresh;
+        private System.Windows.Forms.Button ButtonRemoveContact;
+        private System.Windows.Forms.Button ButtonExit;
+        private System.Windows.Forms.Button ButtonSaveToFile;
+        private System.Windows.Forms.TextBox TextBoxContactPhone;
+        private System.Windows.Forms.Label LabelContactName;
+        private System.Windows.Forms.Label LabelContactPhone;
+        private System.Windows.Forms.Button ButtonRefresh;
+        private System.Windows.Forms.Button ButtonContactAdd;
     }
 }
-
